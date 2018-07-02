@@ -19,6 +19,6 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
         <logger message="#[payload] and #[flowVars.meResult]" level="INFO" doc:name="Logger"/>
     </flow>
     <flow name="appendpayload">
-        <set-payload value="line 2 added" doc:name="append payload - line 2 added"/>
+        <set-payload value="line 2 added in muleflow" doc:name="append payload - line 2 added"/>
     </flow>
 </mule>
