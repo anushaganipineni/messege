@@ -1,4 +1,5 @@
-pipeline {
+pipeline 
+{
         any agent
         stages{
         stage('dev') {
