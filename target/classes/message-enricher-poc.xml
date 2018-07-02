@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <flow name="message-enricher-pocFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/me" doc:name="HTTP"/>
+        <set-payload value="this is the world" doc:name="Set Payload - this is the world"/>
+        <set-variable variableName="meResult" value="" doc:name="meResult"/>
+        <enricher doc:name="Message Enricher">
+            <flow-ref name="appendpayload" doc:name="Flow Reference"/>
+            <enrich source="#[payload]" target="#[payload]"/>
+        </enricher>
+        <logger message="#[payload] and #[flowVars.meResult]" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="appendpayload">
+        <set-payload value="line 2 added" doc:name="append payload - line 2 added"/>
+    </flow>
+</mule>
